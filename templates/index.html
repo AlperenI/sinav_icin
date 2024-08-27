@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Sınavı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .score {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="score">
+        En yüksek not: {{ highest_score }}
+    </div>
+    <main>
+        <h1>Python Sınavı</h1>
+        <form action="{{ url_for('submit') }}" method="post">
+            {% for idx, question in enumerate(questions) %}
+                <div>
+                    <p>{{ question.soru }}</p>
+                    {% if question.secenekler %}
+                        {% for secenek in question.secenekler %}
+                            <input type="radio" name="question{{ idx }}" value="{{ secenek }}"> {{ secenek }}<br>
+                        {% endfor %}
+                    {% else %}
+                        <input type="text" name="question{{ idx }}"><br>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit">Gönder</button>
+        </form>
+    </main>
+    <footer>
+        <p>Made by Aziz Alperen Görmüş</p>
+    </footer>
+</body>
+</html>
